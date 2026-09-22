@@ -12,13 +12,16 @@ import {
 } from 'react-native';
 import { colors } from '../constants/colors';
 import { spacing, borderRadius, typography } from '../constants/spacing';
+import { EyeIcon } from './AuthIcons';
 
 export interface InputProps {
   label?: string;
+  labelRight?: React.ReactNode;
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
   secureTextEntry?: boolean;
+  showEyeIcon?: boolean;
   error?: string;
   helperText?: string;
   keyboardType?: KeyboardTypeOptions;
@@ -29,16 +32,19 @@ export interface InputProps {
   rightIcon?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<TextStyle>;
+  inputContainerStyle?: StyleProp<ViewStyle>;
   testID?: string;
   accessibilityLabel?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
   label,
+  labelRight,
   value,
   onChangeText,
   placeholder,
   secureTextEntry = false,
+  showEyeIcon = false,
   error,
   helperText,
   keyboardType = 'default',
@@ -49,6 +55,7 @@ export const Input: React.FC<InputProps> = ({
   rightIcon,
   style,
   inputStyle,
+  inputContainerStyle,
   testID,
   accessibilityLabel,
 }) => {
@@ -60,10 +67,15 @@ export const Input: React.FC<InputProps> = ({
 
   return (
     <View style={[styles.container, style]}>
-      {label && (
-        <Text style={[styles.label, hasError && styles.labelError]}>
-          {label}
-        </Text>
+      {(label || labelRight) && (
+        <View style={styles.labelRow}>
+          {label ? (
+            <Text style={[styles.label, hasError && styles.labelError]}>
+              {label}
+            </Text>
+          ) : <View />}
+          {labelRight}
+        </View>
       )}
 
       <View
@@ -72,6 +84,7 @@ export const Input: React.FC<InputProps> = ({
           isFocused && styles.inputFocused,
           hasError && styles.inputError,
           disabled && styles.inputDisabled,
+          inputContainerStyle,
         ]}
       >
         {leftIcon && <View style={styles.leftIconWrapper}>{leftIcon}</View>}
@@ -103,11 +116,15 @@ export const Input: React.FC<InputProps> = ({
             onPress={() => setIsPasswordVisible((prev) => !prev)}
             accessibilityRole="button"
             accessibilityLabel={isPasswordVisible ? 'Hide password' : 'Show password'}
-            style={styles.eyeToggle}
+            style={[styles.eyeToggle, showEyeIcon && styles.eyeToggleIconOnly]}
           >
-            <Text style={styles.eyeToggleText}>
-              {isPasswordVisible ? 'Hide' : 'Show'}
-            </Text>
+            {showEyeIcon ? (
+              <EyeIcon isVisible={isPasswordVisible} color={colors.text.secondary} />
+            ) : (
+              <Text style={styles.eyeToggleText}>
+                {isPasswordVisible ? 'Hide' : 'Show'}
+              </Text>
+            )}
           </TouchableOpacity>
         ) : (
           rightIcon && <View style={styles.rightIconWrapper}>{rightIcon}</View>
@@ -130,11 +147,16 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: spacing.md,
   },
+  labelRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing.xs + 2,
+  },
   label: {
     fontSize: typography.fontSizes.sm,
     fontWeight: typography.fontWeights.semibold,
     color: colors.text.secondary,
-    marginBottom: spacing.xs + 2,
   },
   labelError: {
     color: colors.status.error,
@@ -181,6 +203,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm,
     backgroundColor: colors.background.tertiary,
     borderRadius: borderRadius.xs,
+  },
+  eyeToggleIconOnly: {
+    backgroundColor: 'transparent',
+    paddingHorizontal: spacing.xs,
+    paddingVertical: spacing.xs,
   },
   eyeToggleText: {
     fontSize: typography.fontSizes.xs,

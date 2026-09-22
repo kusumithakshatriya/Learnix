@@ -64,6 +64,18 @@ export const colors = {
     info: '#3B82F6',
     infoLight: '#DBEAFE',
   },
+
+  // Auth Accent (Modern Purple / Indigo & Lavender for Authentication UI)
+  auth: {
+    indigo: '#5146E5',
+    indigoDark: '#4338CA',
+    indigoLight: '#6366F1',
+    lavender: '#F4F3FF',
+    lavenderLight: '#F8F7FF',
+    lavenderBorder: '#E0E0FC',
+    segmentBg: '#ECEBFA',
+    charcoalBg: '#0A192F',
+  },
 } as const;
 
 export type ColorsType = typeof colors;
