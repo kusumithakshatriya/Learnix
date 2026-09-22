@@ -2,6 +2,7 @@
 
 This is the backend API for Learnix, a personalized Student Learning & Career OS.
 Phase 1 focuses on building a solid foundation with user management, profiles, education, skills, and goals.
+Phase 2 focuses on Student DNA and calculating profile completion.
 
 ## Tech Stack
 - Python

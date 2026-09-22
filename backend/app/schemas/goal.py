@@ -4,6 +4,8 @@ from datetime import datetime, date
 
 class GoalBase(BaseModel):
     career_goal: str
+    target_role: Optional[str] = None
+    target_industry: Optional[str] = None
     target_date: Optional[date] = None
 
 class GoalCreate(GoalBase):
@@ -15,5 +17,4 @@ class GoalResponse(GoalBase):
     created_at: datetime
     updated_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = {'from_attributes': True}
