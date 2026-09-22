@@ -13,7 +13,7 @@ import { colors } from '../constants/colors';
 import { spacing, borderRadius, typography } from '../constants/spacing';
 import { theme } from '../constants/theme';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'indigo' | 'social';
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 export interface ButtonProps {
@@ -28,6 +28,7 @@ export interface ButtonProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   fullWidth?: boolean;
+  fullRounded?: boolean;
   testID?: string;
   accessibilityLabel?: string;
 }
@@ -44,6 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
   leftIcon,
   rightIcon,
   fullWidth = true,
+  fullRounded = false,
   testID,
   accessibilityLabel,
 }) => {
@@ -63,9 +65,11 @@ export const Button: React.FC<ButtonProps> = ({
         sizeStyles[size],
         variantStyles[variant].container,
         fullWidth && styles.fullWidth,
+        fullRounded && styles.fullRounded,
         disabled && styles.disabledContainer,
         variant === 'primary' && !disabled && theme.shadows.sm,
         variant === 'secondary' && !disabled && theme.shadows.gold,
+        variant === 'indigo' && !disabled && theme.shadows.md,
         style,
       ]}
     >
@@ -104,6 +108,9 @@ const styles = StyleSheet.create({
   },
   fullWidth: {
     width: '100%',
+  },
+  fullRounded: {
+    borderRadius: borderRadius.full,
   },
   contentRow: {
     flexDirection: 'row',
@@ -214,6 +221,30 @@ const variantStyles: Record<
     },
     text: {
       color: colors.primary.main,
+    },
+    spinnerColor: colors.primary.main,
+  },
+  indigo: {
+    container: {
+      backgroundColor: colors.auth.indigo,
+      borderWidth: 1,
+      borderColor: colors.auth.indigoDark,
+    },
+    text: {
+      color: colors.text.inverse,
+      fontWeight: typography.fontWeights.bold,
+    },
+    spinnerColor: colors.text.inverse,
+  },
+  social: {
+    container: {
+      backgroundColor: colors.background.primary,
+      borderWidth: 1.5,
+      borderColor: colors.border.light,
+    },
+    text: {
+      color: colors.text.primary,
+      fontWeight: typography.fontWeights.semibold,
     },
     spinnerColor: colors.primary.main,
   },
