@@ -283,3 +283,32 @@ Get current student's career goals.
   }
 ]
 ```
+
+
+---
+
+## Student DNA
+
+### GET /api/student-dna
+Get the current student's aggregated DNA and profile completion.
+**Auth Required:** Yes (Bearer Token)
+
+### PUT /api/student-dna
+Update learning preferences.
+**Auth Required:** Yes (Bearer Token)
+
+---
+
+## Interests
+
+### GET /api/interests
+List interests.
+**Auth Required:** Yes
+
+### POST /api/interests
+Add an interest.
+**Auth Required:** Yes
+
+### DELETE /api/interests/{interest_id}
+Delete an interest.
+**Auth Required:** Yes
