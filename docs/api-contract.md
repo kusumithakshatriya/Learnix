@@ -1,4 +1,4 @@
-# Learnix API Contract - Phase 1
+﻿# Learnix API Contract - Phase 1
 
 This document outlines the API contract between the Learnix backend and mobile application.
 
@@ -283,3 +283,76 @@ Get current student's career goals.
   }
 ]
 ```
+
+
+---
+
+## Student DNA
+
+### GET /api/student-dna
+Get the current student's aggregated DNA and profile completion.
+**Auth Required:** Yes (Bearer Token)
+
+### PUT /api/student-dna
+Update learning preferences.
+**Auth Required:** Yes (Bearer Token)
+
+---
+
+## Interests
+
+### GET /api/interests
+List interests.
+**Auth Required:** Yes
+
+### POST /api/interests
+Add an interest.
+**Auth Required:** Yes
+
+### DELETE /api/interests/{interest_id}
+Delete an interest.
+**Auth Required:** Yes
+- - -
+
+---
+
+## Dashboard
+
+### GET `/api/dashboard`
+
+Get the authenticated student's personalized dashboard aggregation.
+
+**Auth Required:** Yes (Bearer Token)
+
+The dashboard aggregates existing student information from:
+
+- Profile
+- Education
+- Goals
+- Skills
+- Interests
+- Student DNA
+
+**Response (200 OK):**
+```json
+{
+  "user": {
+    "name": "Student",
+    "email": "student@example.com"
+  },
+  "profile_completion": 80,
+  "education": {},
+  "career_goal": {},
+  "skills": [],
+  "interests": [],
+  "highlights": {
+    "strengths": [],
+    "focus_areas": [],
+    "missing_information": []
+  },
+  "quick_actions": [],
+  "meta": {
+    "generated_at": "2026-09-30T14:24:54Z",
+    "version": "1"
+  }
+}

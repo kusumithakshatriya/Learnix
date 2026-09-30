@@ -14,6 +14,8 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
     profile = relationship("Profile", back_populates="user", uselist=False)
+    student_dna = relationship("StudentDNA", back_populates="user", uselist=False)
     education = relationship("Education", back_populates="user")
     skills = relationship("Skill", back_populates="user")
     goals = relationship("Goal", back_populates="user")
+    interests = relationship("Interest", back_populates="user")
