@@ -52,22 +52,29 @@ def test_add_and_list_interests(client, auth_token):
     res3 = client.delete(f"/api/interests/{interest['id']}", headers={"Authorization": f"Bearer {auth_token}"})
     assert res3.status_code == 204
 
-def test_profile_completion_calculation(client, auth_token):
-    # It should be 30% by default because Profile with name was created during signup (20%) 
-    # and previous test updated learning preferences (10%)
-    res1 = client.get("/api/student-dna", headers={"Authorization": f"Bearer {auth_token}"})
-    assert res1.json()["profile_completion"] == 30
+def test_profile_completion_calculation(client):
+    # Setup fresh user
+    client.post(
+        "/api/auth/signup",
+        json={"email": "fresh@example.com", "password": "password", "name": "Fresh User"}
+    )
+    res = client.post("/api/auth/login", json={"email": "fresh@example.com", "password": "password"})
+    token = res.json()["access_token"]
+
+    # It should be 20% by default because Profile with name was created during signup
+    res1 = client.get("/api/student-dna", headers={"Authorization": f"Bearer {token}"})
+    assert res1.json()["profile_completion"] == 20
     
     # Add a skill
     client.post(
         "/api/skills",
-        headers={"Authorization": f"Bearer {auth_token}"},
+        headers={"Authorization": f"Bearer {token}"},
         json={"skill_name": "Python", "skill_level": 80}
     )
     
     # Check again (should add 20%)
-    res2 = client.get("/api/student-dna", headers={"Authorization": f"Bearer {auth_token}"})
-    assert res2.json()["profile_completion"] == 50
+    res2 = client.get("/api/student-dna", headers={"Authorization": f"Bearer {token}"})
+    assert res2.json()["profile_completion"] == 40
 
 def test_cannot_delete_other_user_interest(client, auth_token):
     # Setup user 2
