@@ -19,3 +19,4 @@ class User(Base):
     skills = relationship("Skill", back_populates="user")
     goals = relationship("Goal", back_populates="user")
     interests = relationship("Interest", back_populates="user")
+    conversations = relationship("AIConversation", back_populates="user")
