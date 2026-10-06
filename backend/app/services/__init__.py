@@ -4,4 +4,5 @@ from app.services.dashboard_service import get_dashboard_data
 from app.services.student_context_service import build_student_context
 from app.services.ai_provider import get_ai_provider
 from app.services.ai_mentor_service import handle_chat
-from app.services.learning_hub_service import create_document, get_documents, get_document, delete_document
+from app.services.learning_hub_service import create_document, get_documents, get_document, delete_document, upload_document
+from app.services import storage_service

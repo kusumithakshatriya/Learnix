@@ -11,6 +11,18 @@ from contextlib import asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create tables for Phase 1 (In production, use Alembic migrations)
     Base.metadata.create_all(bind=engine)
+
+    # Minimal schema migration for Phase 5.2.1
+    from sqlalchemy import text
+    with engine.begin() as conn:
+        if engine.dialect.name == "postgresql":
+            conn.execute(text("ALTER TABLE documents ADD COLUMN IF NOT EXISTS file_size INTEGER;"))
+        elif engine.dialect.name == "sqlite":
+            try:
+                conn.execute(text("ALTER TABLE documents ADD COLUMN file_size INTEGER;"))
+            except Exception:
+                pass
+
     yield
 
 app = FastAPI(
