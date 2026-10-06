@@ -20,3 +20,7 @@ class User(Base):
     goals = relationship("Goal", back_populates="user")
     interests = relationship("Interest", back_populates="user")
     conversations = relationship("AIConversation", back_populates="user")
+    documents = relationship("Document", back_populates="user")
+    summaries = relationship("Summary", back_populates="user")
+    notes = relationship("Note", back_populates="user")
+    flashcards = relationship("Flashcard", back_populates="user")
