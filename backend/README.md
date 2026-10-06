@@ -48,3 +48,6 @@ Run tests with `pytest`:
 ```bash
 pytest
 ```
+
+## Database Migrations
+Currently, the project uses `Base.metadata.create_all` on startup. For Phase 5.2.1, a minimal schema migration is executed automatically in the FastAPI lifespan to add the `file_size` column to the `documents` table safely (`ALTER TABLE documents ADD COLUMN IF NOT EXISTS file_size INTEGER;`). For local Supabase instances, this will execute transparently upon server boot.
