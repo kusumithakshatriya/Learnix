@@ -6,3 +6,4 @@ from app.schemas.goal import GoalCreate, GoalResponse
 from app.schemas.interest import InterestCreate, InterestResponse
 from app.schemas.student_dna import StudentDNAUpdate, StudentDNAResponse, LearningPreferences
 from app.schemas.dashboard import DashboardResponse
+from app.schemas.ai_mentor import ChatRequest, ChatResponse, MentorMode, AIMessageSchema
