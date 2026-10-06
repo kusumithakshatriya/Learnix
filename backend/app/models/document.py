@@ -14,6 +14,7 @@ class Document(Base):
     file_name = Column(String, nullable=True)
     file_path = Column(String, nullable=True)
     mime_type = Column(String, nullable=True)
+    file_size = Column(Integer, nullable=True)
     status = Column(String, nullable=False, default="pending") # pending, processing, completed, failed
     extracted_text = Column(Text, nullable=True)
     

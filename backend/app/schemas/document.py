@@ -28,8 +28,8 @@ class DocumentResponse(DocumentBase):
     id: int
     user_id: int
     file_name: Optional[str] = None
-    file_path: Optional[str] = None
     mime_type: Optional[str] = None
+    file_size: Optional[int] = None
     status: DocumentStatus
     created_at: datetime
     updated_at: datetime
