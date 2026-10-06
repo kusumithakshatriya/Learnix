@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api import auth, profile, education, skills, goals, student_dna, interests, dashboard, ai_mentor
+from app.api import auth, profile, education, skills, goals, student_dna, interests, dashboard, ai_mentor, learning_hub
 
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
@@ -11,3 +11,4 @@ api_router.include_router(student_dna.router, prefix="/student-dna", tags=["stud
 api_router.include_router(interests.router, prefix="/interests", tags=["interests"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
 api_router.include_router(ai_mentor.router, prefix="/ai-mentor", tags=["ai-mentor"])
+api_router.include_router(learning_hub.router, prefix="/learning-hub", tags=["learning-hub"])
